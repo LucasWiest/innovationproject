@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url = "file:./dev.db"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String
+  password     String
+  type         String
+  courseId     Int
+  universityId Int
+  course       Course    @relation(fields: [courseId], references: [id])
+  university   University @relation(fields: [universityId], references: [id])
+  messages     Message[]
+  groupUsers   GroupUser[]
+}
+
+model Course {
+  id    Int    @id @default(autoincrement())
+  name  String
+  users User[]
+  groups Group[]
+} 
+
+model University {
+  id    Int    @id @default(autoincrement())
+  name  String
+  users User[]
+  groups Group[]
+}
+
+model Message {
+  id     Int    @id @default(autoincrement())
+  text   String
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model GroupUser {
+  userId  Int
+  groupId Int
+  user    User  @relation(fields: [userId], references: [id])
+  group   Group @relation(fields: [groupId], references: [id])
+
+  @@id([userId, groupId])
+}
+
+model Group {
+  id           Int       @id @default(autoincrement())
+  name         String
+  courseId     Int
+  universityId Int
+  course       Course    @relation(fields: [courseId], references: [id])
+  university   University @relation(fields: [universityId], references: [id])
+  groupUsers   GroupUser[]
+}
