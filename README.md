@@ -1,3 +1,10 @@
+Hello, guys! 
+
+I'm so excited about this API, it uses Prisma, GraphQL, SQLite and NestJS, it's an API that is being used for a college project, I hope it will be useful for anyone who wants to make the GraphQL api patterns.
+
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
