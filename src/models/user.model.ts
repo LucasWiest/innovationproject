@@ -27,7 +27,10 @@ export class UserModel {
   university: UniversityModel;
 
   @Field(type => [MessageModel])
-  messages: MessageModel[];
+  sentMessages: MessageModel[];
+
+  @Field(type => [MessageModel])
+  receivedMessages: MessageModel[];
 
   @Field(type => [GroupUserModel])
   groupUsers: GroupUserModel[];

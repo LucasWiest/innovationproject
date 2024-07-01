@@ -7,7 +7,7 @@ import { PrismaService } from "src/prisma.service";
 export class UserService {
     constructor(private readonly prisma: PrismaService) { } 
 
-    async getUser (): Promise<User[]> {
+    async getUsers (): Promise<User[]> {
         let user: User[]; 
 
         user = await this.prisma.user.findMany(); 

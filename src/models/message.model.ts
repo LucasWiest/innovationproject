@@ -1,5 +1,5 @@
 import { Field, InputType, ObjectType } from "@nestjs/graphql";
-import { IsString } from 'class-validator';
+import { IsDate, IsString } from 'class-validator';
 import { UserModel } from "./user.model";
 
 @InputType('MessageInput', { isAbstract: true })
@@ -13,6 +13,13 @@ export class MessageModel {
   @IsString()
   text: string;
 
+  @Field(type => Date) 
+  @IsDate()
+  date: Date;
+
   @Field(type => UserModel)
-  user: UserModel;
+  sender: UserModel;
+
+  @Field(type => UserModel)
+  recipient: UserModel;
 }

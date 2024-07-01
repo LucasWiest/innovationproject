@@ -11,17 +11,18 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  name         String
-  email        String
-  password     String
-  type         String
-  courseId     Int
-  universityId Int
-  course       Course    @relation(fields: [courseId], references: [id])
-  university   University @relation(fields: [universityId], references: [id])
-  messages     Message[]
-  groupUsers   GroupUser[]
+  id            Int          @id @default(autoincrement())
+  name          String
+  email         String
+  password      String
+  type          String
+  courseId      Int
+  course        Course       @relation(fields: [courseId], references: [id])
+  universityId  Int
+  university    University   @relation(fields: [universityId], references: [id])
+  sentMessages  Message[]    @relation("sentMessages")
+  receivedMessages Message[] @relation("receivedMessages")
+  groupUsers    GroupUser[]
 }
 
 model Course {
@@ -38,11 +39,15 @@ model University {
   groups Group[]
 }
 
+
 model Message {
-  id     Int    @id @default(autoincrement())
-  text   String
-  userId Int
-  user   User   @relation(fields: [userId], references: [id])
+  id             Int      @id @default(autoincrement())
+  text           String
+  date           DateTime
+  userSenderId   Int
+  userRecipientId Int
+  sender         User     @relation("sentMessages", fields: [userSenderId], references: [id])
+  recipient      User     @relation("receivedMessages", fields: [userRecipientId], references: [id])
 }
 
 model GroupUser {
